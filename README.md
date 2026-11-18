@@ -78,6 +78,17 @@ For 24/7 operation, run under `systemd` (see MuseBar docs) or a process manager.
 | `PRINTER_PORT` | Usually `9100` |
 | `PRINTERS_JSON` | Optional kitchen printer routing by slug |
 
+## Cash drawer (Epson DK)
+
+If the cash drawer kick cable is plugged into the printer **DK** port (not LAN),
+MuseBar Cloud can enqueue `cash_drawer_open` jobs. This bridge sends them to
+`PRINTER_HOST:9100` like a receipt — the Epson pulses DK and the drawer opens.
+
+No extra `.env` keys. Keep the drawer on **DK**, bridge running, and enable
+« Ouvrir le tiroir sur paiement espèces » in MuseBar → Paramètres → Imprimante.
+
+Logs include `cashDrawerKick: true` when such a job is processed.
+
 ## Kitchen printers
 
 If you use kitchen command tickets, set `PRINTERS_JSON` with slugs matching **Menu → Kitchen printers** in MuseBar.

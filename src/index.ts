@@ -18,11 +18,15 @@ async function processJob(config: BridgeConfig, job: BridgePrintJob): Promise<vo
     documentType: job.document_type,
     kitchenPrinterSlug: job.metadata?.kitchen_printer_slug,
     attempt: job.attempt_count,
+    cashDrawerKick: job.document_type === 'cash_drawer_open',
   });
   try {
     await printEscPosJob(job, config);
     await ackJob(config, job.id);
-    log('Print job ACKed', { jobId: job.id });
+    log('Print job ACKed', {
+      jobId: job.id,
+      cashDrawerKick: job.document_type === 'cash_drawer_open',
+    });
   } catch (error) {
     log('Print job failed', {
       jobId: job.id,

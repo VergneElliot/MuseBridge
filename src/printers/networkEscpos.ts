@@ -15,6 +15,11 @@ export function isKitchenBridgeDocumentType(documentType: string): boolean {
     || documentType === 'kitchen_test';
 }
 
+/** Receipt printer jobs (including cash_drawer_open → Epson DK kick). */
+export function isReceiptPrinterDocumentType(documentType: string): boolean {
+  return !isKitchenBridgeDocumentType(documentType);
+}
+
 export function resolvePrinterEndpoint(
   job: Pick<BridgePrintJob, 'document_type' | 'metadata'>,
   config: Pick<BridgeConfig, 'printerHost' | 'printerPort' | 'printers'>
